@@ -16,6 +16,15 @@ main {
   margin: auto;
 }
 
+a {
+  color: #0085ff;
+  text-decoration: none;
+}
+a:hover {
+  color: #0070ee;
+  text-decoration: underline;
+}
+
 .container {
   width: 100%;
   display: flex;
