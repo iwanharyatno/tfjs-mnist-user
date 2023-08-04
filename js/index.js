@@ -16,7 +16,7 @@ function showPrediction() {
 
 function initialize() {
   tf.loadLayersModel('/models/model.json').then(m => {
-    const warmupResult = m.predict(tf.zeros([1, 784]));
+    const warmupResult = m.predict(tf.zeros([1, 28, 28, 1]));
     warmupResult.dataSync();
     warmupResult.dispose();
     canvas.parentNode.classList.remove('loading');
@@ -28,7 +28,7 @@ function initialize() {
 
 function predict() {
   if (model) {
-    model.predict(tf.tensor2d(grid.flat(), [1, 784]))
+    model.predict(tf.tensor(grid.flat(), [1, 28, 28, 1]))
       .data()
       .then(result => {
         prediction = Object.values(result).map((p,i) => ({pred: p, label: i}));
