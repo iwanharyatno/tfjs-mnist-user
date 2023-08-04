@@ -27,21 +27,23 @@ function getRowColIndexFromCoord(x, y) {
 function fillPixel(x, y, brightness) {
   const [rowIndex, colIndex] = getRowColIndexFromCoord(x, y);
 
+  if (rowIndex < 0 || rowIndex >= gridSize || colIndex < 0 || colIndex >= gridSize) return;
+
   if (rowIndex < gridSize && colIndex < gridSize) grid[rowIndex][colIndex] += brightness;
   
   if (rowIndex < gridSize - 1) grid[rowIndex + 1][colIndex] += brightness / 2;
   if (colIndex < gridSize - 1) grid[rowIndex][colIndex + 1] += brightness / 2;
   if (colIndex < gridSize - 1 && rowIndex < gridSize - 1) grid[rowIndex + 1][colIndex + 1] += brightness / 2;
 
-  if (rowIndex > 0) {
+  if (rowIndex > 0 && rowIndex < gridSize - 1) {
     grid[rowIndex - 1][colIndex] += brightness / 2;
     if (colIndex < gridSize - 1) grid[rowIndex - 1][colIndex + 1] += brightness / 2;
   }
-  if (colIndex > 0) {
+  if (colIndex > 0 && colIndex < gridSize - 1) {
     grid[rowIndex][colIndex - 1] += brightness / 2;
     if (rowIndex < gridSize - 1) grid[rowIndex + 1][colIndex - 1] += brightness / 2;
   }
-  if (colIndex > 0 && rowIndex > 0) {
+  if (colIndex > 0 && rowIndex > 0 && colIndex < gridSize - 1 && rowIndex < gridSize - 1) {
     grid[rowIndex - 1][colIndex - 1] += brightness / 2;
   }
 }
