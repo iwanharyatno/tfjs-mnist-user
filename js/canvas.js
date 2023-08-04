@@ -27,19 +27,19 @@ function getRowColIndexFromCoord(x, y) {
 function fillPixel(x, y, brightness) {
   const [rowIndex, colIndex] = getRowColIndexFromCoord(x, y);
 
-  grid[rowIndex][colIndex] += brightness;
+  if (rowIndex < gridSize && colIndex < gridSize) grid[rowIndex][colIndex] += brightness;
   
-  grid[rowIndex + 1][colIndex] += brightness / 2;
-  grid[rowIndex][colIndex + 1] += brightness / 2;
-  grid[rowIndex + 1][colIndex + 1] += brightness / 2;
+  if (rowIndex < gridSize - 1) grid[rowIndex + 1][colIndex] += brightness / 2;
+  if (colIndex < gridSize - 1) grid[rowIndex][colIndex + 1] += brightness / 2;
+  if (colIndex < gridSize - 1 && rowIndex < gridSize - 1) grid[rowIndex + 1][colIndex + 1] += brightness / 2;
 
   if (rowIndex > 0) {
     grid[rowIndex - 1][colIndex] += brightness / 2;
-    grid[rowIndex - 1][colIndex + 1] += brightness / 2;
+    if (colIndex < gridSize - 1) grid[rowIndex - 1][colIndex + 1] += brightness / 2;
   }
   if (colIndex > 0) {
     grid[rowIndex][colIndex - 1] += brightness / 2;
-    grid[rowIndex + 1][colIndex - 1] += brightness / 2;
+    if (rowIndex < gridSize - 1) grid[rowIndex + 1][colIndex - 1] += brightness / 2;
   }
   if (colIndex > 0 && rowIndex > 0) {
     grid[rowIndex - 1][colIndex - 1] += brightness / 2;
